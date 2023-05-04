@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
-  DeletePlantFromallotment,
+  DeletePlantFromAllotment,
   getPlantByName,
 } from "../../firebase/database";
 import { PlantType } from "../../types/Plants.types";
@@ -19,6 +19,7 @@ const SinglePlantScreen = ({ route }: any) => {
   const [plant, setPlant] = useState<PlantType | undefined>();
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [error, setError] = useState<any>(false);
+  const [datePlanted, setDatePlanted] = useState<string>("");
   const { plantName } = route.params;
 
   useEffect(() => {
@@ -38,15 +39,17 @@ const SinglePlantScreen = ({ route }: any) => {
       });
   }, []);
 
-  const handleOnPress = () => {
-    DeletePlantFromallotment("Rh2gty20wdtiEItYtcz2", plant);
-    console.log("hello")
+  
+
+  const handleOnPressDelete = () => {
+    DeletePlantFromAllotment("Rh2gty20wdtiEItYtcz2", plant, datePlanted);
+    console.log("hello");
   };
 
   return (
     <ScrollView>
-      <Pressable onPress={handleOnPress}>
-        <Text>Delete something from your allotment</Text>
+      <Pressable onPress={handleOnPressDelete}>
+        <Text>Delete this from your allotment</Text>
       </Pressable>
       <View style={styles.container}>
         <Text style={styles.header}>{plantName}</Text>

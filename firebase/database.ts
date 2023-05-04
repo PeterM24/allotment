@@ -35,15 +35,16 @@ export const createUser = async ({
   }
 };
 
-export const DeletePlantFromallotment = async (
+export const DeletePlantFromAllotment = async (
   userId: string,
-  plant: PlantType | undefined
+  plant: PlantType | undefined,
+  datePlanted: string
 ) => {
   try {
     const userRef = doc(db, "users", userId);
     await updateDoc(userRef, {
-      allotment: arrayRemove({ ...plant }),
-    });
+      allotment: arrayRemove({datePlanted: `${datePlanted}`, ...plant})
+    })
   } catch (error) {
     console.log(error);
   }
