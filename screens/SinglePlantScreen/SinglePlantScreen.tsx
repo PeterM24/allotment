@@ -1,6 +1,16 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
-import { getPlantByName } from "../../firebase/database";
+import {
+  DeletePlantFromallotment,
+  getPlantByName,
+} from "../../firebase/database";
 import { PlantType } from "../../types/Plants.types";
 import CalendarSinglePlant from "../Calendar";
 
@@ -28,8 +38,16 @@ const SinglePlantScreen = ({ route }: any) => {
       });
   }, []);
 
+  const handleOnPress = () => {
+    DeletePlantFromallotment("Rh2gty20wdtiEItYtcz2", plant);
+    console.log("hello")
+  };
+
   return (
     <ScrollView>
+      <Pressable onPress={handleOnPress}>
+        <Text>Delete something from your allotment</Text>
+      </Pressable>
       <View style={styles.container}>
         <Text style={styles.header}>{plantName}</Text>
         {isLoading ? (

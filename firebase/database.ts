@@ -1,5 +1,6 @@
 import { app } from "../firebaseConfig";
 import {
+  arrayRemove,
   collection,
   doc,
   getDoc,
@@ -7,6 +8,7 @@ import {
   getFirestore,
   query,
   setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { UserType } from "../types/Users.types";
@@ -30,6 +32,20 @@ export const createUser = async ({
     });
   } catch (err) {
     console.error(err);
+  }
+};
+
+export const DeletePlantFromallotment = async (
+  userId: string,
+  plant: PlantType | undefined
+) => {
+  try {
+    const userRef = doc(db, "users", userId);
+    await updateDoc(userRef, {
+      allotment: arrayRemove({ ...plant }),
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
 
