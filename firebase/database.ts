@@ -2,6 +2,7 @@ import { app } from "../firebaseConfig";
 import {
   arrayRemove,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -35,20 +36,25 @@ export const createUser = async ({
   }
 };
 
+
+
 export const DeletePlantFromAllotment = async (
   userId: string,
   plant: PlantType | undefined,
-  datePlanted: string
 ) => {
-  try {
-    const userRef = doc(db, "users", userId);
-    await updateDoc(userRef, {
-      allotment: arrayRemove({datePlanted: `${datePlanted}`, ...plant})
-    })
-  } catch (error) {
-    console.log(error);
-  }
-};
+  if(plant) {
+
+    try {
+      const userRef = doc(db, "users", userId, "allotment", plant.name);
+      await deleteDoc(userRef);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+}
+
+
 
 // GET AVATARS - A list of themed avatars which the user can chose from to use as their profile pic/avatar
 export const getAvatars = async () => {

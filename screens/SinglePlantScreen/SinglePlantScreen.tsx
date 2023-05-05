@@ -42,8 +42,8 @@ const SinglePlantScreen = ({ route }: any) => {
   
 
   const handleOnPressDelete = () => {
-    DeletePlantFromAllotment("Rh2gty20wdtiEItYtcz2", plant, datePlanted);
-    console.log("hello");
+    DeletePlantFromAllotment("Rh2gty20wdtiEItYtcz2", plant);
+  
   };
 
   return (
